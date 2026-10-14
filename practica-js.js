@@ -78,8 +78,10 @@ const precioEntreRango = productos.filter(producto => producto.precio >= 50000 &
 const categoriaPerifericos = productos.filter(producto => producto.categoria === 'Perifericos');
 const productoId5 = productos.find(producto => producto.id === 5);
 
-function buscarProducto(id) {
-    return productos.find(producto => producto.id === id);
+// Función buscarProducto requerida en el Reto 20
+export function buscarProducto(id) {
+    const encontrado = productos.find(producto => producto.id === id);
+    return encontrado ? encontrado : "Producto no encontrado";
 }
 
 console.log("Precio > 100k:", precioMayor100k);
