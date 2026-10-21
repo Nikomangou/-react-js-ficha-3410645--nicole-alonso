@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import './App.css';
+import BuscadorPokemon from "./components/BuscadorPokemon";
 
 function App() {
-  // Punto 2: Estado de productos
-  const [productos, setProductos] = useState([
-    { id: 1, nombre: "Mouse", precio: 50000, stock: 5 },
-    { id: 2, nombre: "Teclado", precio: 90000, stock: 2 }
-  ]);
+  // Punto 8: Estado de productos inicializado con localStorage
+  const [productos, setProductos] = useState(() => {
+    const guardados = localStorage.getItem("productos");
+    return guardados ? JSON.parse(guardados) : [
+      { id: 1, nombre: "Mouse", precio: 50000, stock: 5 },
+      { id: 2, nombre: "Teclado", precio: 90000, stock: 2 }
+    ];
+  });
+
+  // Efecto para guardar en localStorage cada vez que productos cambie
+  useEffect(() => {
+    localStorage.setItem("productos", JSON.stringify(productos));
+  }, [productos]);
 
   // Punto 3: Estados del formulario controlado
   const [nombre, setNombre] = useState("");
@@ -151,6 +160,10 @@ function App() {
           ))}
         </div>
       </section>
+
+      {/* Punto 9: Mini PokéAPI */}
+      <hr style={{ margin: '40px 0' }} />
+      <BuscadorPokemon />
     </main>
   );
 }
